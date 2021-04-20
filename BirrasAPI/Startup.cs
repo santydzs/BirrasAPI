@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Services.Interfaces;
+using Services.Logic;
 
 namespace BirrasAPI
 {
@@ -39,11 +41,12 @@ namespace BirrasAPI
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            //Business layer
-            services.AddTransient<IMeetBusiness, MeetBusiness>();
-
             //DataBase layer
             services.AddTransient<IMeetUnitOfWork, MeetUnitOfWork>();
+
+            //Business layer
+            services.AddTransient<IMeetBusiness, MeetBusiness>();
+            services.AddTransient<IDataBusiness, DataBusiness>();
 
             services.AddSwaggerGen(c =>
             {

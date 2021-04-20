@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BirrasAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class MeetController : ControllerBase
     {
         private IMeetBusiness _business { get; set; }
@@ -22,5 +22,6 @@ namespace BirrasAPI.Controllers
         {
             return await _business.test();
         }
+
     }
 }

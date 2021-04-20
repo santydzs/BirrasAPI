@@ -16,6 +16,7 @@ namespace Database.Entity
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime Date { get; set; }
+        public string City { get; set; }
         public string Address { get; set; }
 
         public virtual ICollection<MeetUserRelation> MeetUserRelations { get; set; }
