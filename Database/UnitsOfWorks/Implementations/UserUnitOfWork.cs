@@ -10,7 +10,9 @@ namespace Database.UnitsOfWorks.Implementations
         public UserUnitOfWork(BirrasContext context) : base(context)
         {
             Users = new UserRepository(_context);
+            Rols = new RolRepository(_context);
         }
         public IUserRepository Users { get; private set; }
+        public IRolRepository Rols { get; private set; }
     }
 }

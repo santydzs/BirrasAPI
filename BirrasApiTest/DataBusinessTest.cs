@@ -24,5 +24,56 @@ namespace BirrasApiTest
             //Assert
             Assert.Equal(response, result);
         }
+
+        [Fact]
+        public async void GetBeersByTemp1()
+        {
+            //Arrange
+            Mock<IWeatherLogic> mockrepo = new Mock<IWeatherLogic>();
+            IDataBusiness business = new DataBusiness(mockrepo.Object);
+
+            decimal response = 19.5m;
+            mockrepo.Setup(x => x.GetTemperature("buenos aires")).ReturnsAsync(response);
+
+            //Act
+            int result = await business.GetHowManyBeers("buenos aires", 9);
+
+            //Assert
+            Assert.Equal(2, result);
+        }
+
+        [Fact]
+        public async void GetBeersByTemp2()
+        {
+            //Arrange
+            Mock<IWeatherLogic> mockrepo = new Mock<IWeatherLogic>();
+            IDataBusiness business = new DataBusiness(mockrepo.Object);
+
+            decimal response = 25m;
+            mockrepo.Setup(x => x.GetTemperature("buenos aires")).ReturnsAsync(response);
+
+            //Act
+            int result = await business.GetHowManyBeers("buenos aires", 9);
+
+            //Assert
+            Assert.Equal(3, result);
+        }
+
+        [Fact]
+        public async void GetBeersByTemp3()
+        {
+            //Arrange
+            Mock<IWeatherLogic> mockrepo = new Mock<IWeatherLogic>();
+            IDataBusiness business = new DataBusiness(mockrepo.Object);
+
+            decimal response = 22.5m;
+            mockrepo.Setup(x => x.GetTemperature("buenos aires")).ReturnsAsync(response);
+
+            //Act
+            int result = await business.GetHowManyBeers("buenos aires", 9);
+
+            //Assert
+            Assert.Equal(2, result);
+        }
     }
 }

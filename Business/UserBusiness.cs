@@ -34,5 +34,10 @@ namespace Business
             var db = await _unit.Users.GetOne(email);
             return _mapper.Map<User, UserWithPassword>(db);
         }
+        public async Task<List<RolDTO>> GetAllRoles()
+        {
+            var db = await _unit.Rols.GetAll();
+            return _mapper.Map<List<Rol>, List<RolDTO>>(db);
+        }
     }
 }
