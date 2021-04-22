@@ -15,7 +15,17 @@ namespace Database.Repository.Implementations
             return await _context.Users.Include(x => x.Rol).ToListAsync();
         }
 
-        public async Task Add(UserDTO dto)
+        public async Task<User> GetOne(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<User> GetWithCredentials(string email, string password)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+        }
+
+        public async Task<int> Add(UserCreateDTO dto)
         {
             User newUser = new User()
             {
@@ -25,6 +35,10 @@ namespace Database.Repository.Implementations
                 RolId = dto.RolId
             };
             await _context.Users.AddAsync(newUser);
+
+            await _context.SaveChangesAsync();
+            return newUser.Id;
+
         }
     }
 }

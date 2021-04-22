@@ -1,4 +1,5 @@
-﻿using Business.Interfaces;
+﻿using BirrasAPI.Request;
+using Business.Interfaces;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -18,10 +19,15 @@ namespace BirrasAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<List<MeetDTO>> Get()
+        public async Task<ActionResult<List<MeetDTO>>> Get()
         {
-            return await _business.test();
+            return await _business.GetAll();
         }
 
+        [HttpPost]
+        public async Task Add([FromBody] AddMeetRequest request)
+        {
+            await _business.AddMeetWithInvitations(request, request.usersIds);
+        }
     }
 }

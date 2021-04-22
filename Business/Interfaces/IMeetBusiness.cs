@@ -6,6 +6,8 @@ namespace Business.Interfaces
 {
     public interface IMeetBusiness
     {
-        Task<List<MeetDTO>> test();
+        Task<List<MeetDTO>> GetAll();
+
+        Task AddMeetWithInvitations(MeetDTO dto, List<int> users);
     }
 }

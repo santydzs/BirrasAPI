@@ -5,6 +5,8 @@ namespace Database.Repository.Interfaces
 {
     public interface IinvitationRepository : IBaseRepository
     {
-        Task Add(int meetId, List<int> userIds);
+        Task<int> Add(int meetId, int userId);
+
+        Task Attend(int invitationId);
     }
 }

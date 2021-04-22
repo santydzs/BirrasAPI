@@ -36,6 +36,8 @@ namespace BirrasAPI
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MeetProfiles());
+                mc.AddProfile(new RolProfile());
+                mc.AddProfile(new UserProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();
@@ -43,10 +45,12 @@ namespace BirrasAPI
 
             //DataBase layer
             services.AddTransient<IMeetUnitOfWork, MeetUnitOfWork>();
+            services.AddTransient<IUserUnitOfWork, UserUnitOfWork>();
 
             //Business layer
             services.AddTransient<IMeetBusiness, MeetBusiness>();
             services.AddTransient<IDataBusiness, DataBusiness>();
+            services.AddTransient<IUserBusiness, UserBusiness>();
 
             services.AddSwaggerGen(c =>
             {

@@ -1,11 +1,10 @@
 ﻿using Database.Repository.Interfaces;
-using System.Threading.Tasks;
 
 namespace Database.UnitsOfWorks.Interfaces
 {
-    public interface IMeetUnitOfWork
+    public interface IMeetUnitOfWork : IBaseUnitOfWorks
     {
         IMeetRepository Meets { get; }
-        Task<int> Complete();
+        IinvitationRepository Invitations { get; }
     }
 }

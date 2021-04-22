@@ -2,26 +2,17 @@
 using Database.Repository.Implementations;
 using Database.Repository.Interfaces;
 using Database.UnitsOfWorks.Interfaces;
-using System.Threading.Tasks;
 
 namespace Database.UnitsOfWorks.Implementations
 {
-    public class MeetUnitOfWork : IMeetUnitOfWork
+    public class MeetUnitOfWork : BaseUnitOfWorks, IMeetUnitOfWork
     {
-        private readonly BirrasContext _context;
-        public MeetUnitOfWork(BirrasContext context)
+        public MeetUnitOfWork(BirrasContext context) : base(context)
         {
-            _context = context;
             Meets = new MeetRepository(_context);
+            Invitations = new InvitationsRepository(_context);
         }
         public IMeetRepository Meets { get; private set; }
-        public async Task<int> Complete()
-        {
-            return await _context.SaveChangesAsync();
-        }
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public IinvitationRepository Invitations { get; private set; }
     }
 }

@@ -9,6 +9,6 @@ namespace Database.Repository.Interfaces
     {
         Task<List<User>> GetAll();
 
-        Task Add(UserDTO dto);
+        Task<int> Add(UserCreateDTO dto);
     }
 }

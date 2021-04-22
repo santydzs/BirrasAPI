@@ -1,9 +1,10 @@
 ﻿namespace Domain.DTOs
 {
-    public class UserDTO
+    public class UserCreateDTO
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public RolDTO Rol { get; set; }
+        public string Password { get; set; }
+        public int RolId { get; set; }
     }
 }

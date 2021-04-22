@@ -1,6 +1,8 @@
 ﻿using Database.Entity;
 using Database.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Database.Repository.Implementations
@@ -9,33 +11,33 @@ namespace Database.Repository.Implementations
     {
         public InvitationsRepository(BirrasContext context) : base(context) { }
 
-        public async Task Add(int meetId, List<int> userIds)
+        public async Task<int> Add(int meetId, int userId)
         {
-            foreach(int userId in userIds)
+            Invitation newInv = new Invitation()
             {
-                using (var db = await _context.Database.BeginTransactionAsync())
-                {
-                    Invitation newInv = new Invitation()
-                    {
-                        Attended = false,
-                        UserId = userId
-                    };
-                    await _context.Invitations.AddAsync(newInv);
+                Attended = false,
+                UserId = userId
+            };
+            await _context.Invitations.AddAsync(newInv);
 
-                    await _context.SaveChangesAsync();
-
-                    MeetUserRelation relation = new MeetUserRelation()
-                    {
-                        InvitationId = newInv.Id,
-                        MeetId = meetId
-                    };
-
-                    await _context.SaveChangesAsync();
-
-                    db.Commit();
-                }
+            await _context.SaveChangesAsync();
                 
-            }
+            MeetUserRelation relation = new MeetUserRelation()
+            {
+                InvitationId = newInv.Id,
+                MeetId = meetId
+            };
+
+            await _context.SaveChangesAsync();
+
+            return newInv.Id;
+        }
+
+        public async Task Attend(int invitationId)
+        {
+            var invitation = await _context.Invitations.FirstOrDefaultAsync(x => x.Id == invitationId);
+
+            invitation.Attended = true;
         }
     }
 }
