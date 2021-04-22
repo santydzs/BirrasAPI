@@ -1,9 +1,7 @@
 ﻿using Business.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BirrasAPI.Controllers
@@ -20,17 +18,18 @@ namespace BirrasAPI.Controllers
         }
 
         [HttpGet()]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("Temp")]
-        public async Task<ActionResult<object>> Get([FromQuery] string city)
+        public async Task<IActionResult> Get([FromQuery] string city)
         {
-            return new {Temperature = await _business.GetTemperature(city) };
+            return Ok(new {Temperature = await _business.GetTemperature(city)});
         }
 
         [HttpGet]
         [Route("beers")]
-        public async Task<ActionResult<object>> GetBeers([FromQuery] string city, [FromQuery] int persons)
+        public async Task<IActionResult> GetBeers([FromQuery] string city, [FromQuery] int persons)
         {
-            return new {containersOfBeers = await _business.GetHowManyBeers(city, persons)};
+            return Ok(new {containersOfBeers = await _business.GetHowManyBeers(city, persons)});
         }
     }
 }

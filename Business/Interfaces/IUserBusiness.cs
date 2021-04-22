@@ -8,5 +8,6 @@ namespace Business.Interfaces
     {
         Task<List<UserDTO>> GetAll();
         Task Add(UserCreateDTO dto);
+        Task<UserWithPassword> GetwithPassword(string email);
     }
 }

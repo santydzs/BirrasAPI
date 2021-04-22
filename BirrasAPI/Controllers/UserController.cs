@@ -18,9 +18,9 @@ namespace BirrasAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<UserDTO>>> Get()
+        public async Task<IActionResult> Get()
         {
-            return await _business.GetAll();
+            return Ok(await _business.GetAll());
         }
 
         [HttpPost]

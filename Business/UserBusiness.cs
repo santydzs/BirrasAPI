@@ -28,5 +28,11 @@ namespace Business
         {
             await _unit.Users.Add(dto);
         }
+
+        public async Task<UserWithPassword> GetwithPassword(string email)
+        {
+            var db = await _unit.Users.GetOne(email);
+            return _mapper.Map<User, UserWithPassword>(db);
+        }
     }
 }

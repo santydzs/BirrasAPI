@@ -9,6 +9,7 @@ namespace Business.Profiles
         public UserProfile()
         {
             CreateMap<User, UserDTO>();
+            CreateMap<User, UserWithPassword>();
         }
     }
 }

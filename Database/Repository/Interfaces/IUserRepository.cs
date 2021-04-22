@@ -10,5 +10,6 @@ namespace Database.Repository.Interfaces
         Task<List<User>> GetAll();
 
         Task<int> Add(UserCreateDTO dto);
+        Task<User> GetOne(string email);
     }
 }
