@@ -16,6 +16,8 @@ using BirrasAPI.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Services.Interfaces;
+using Services.Logic;
 
 namespace BirrasAPI
 {
@@ -42,8 +44,6 @@ namespace BirrasAPI
                 mc.AddProfile(new UserProfile());
             });
 
-            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
-
             services.AddAuthentication(options => {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -64,6 +64,9 @@ namespace BirrasAPI
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            //Service Layer
+            services.AddTransient<IWeatherLogic, WeatherLogic>();
 
             //DataBase layer
             services.AddTransient<IMeetUnitOfWork, MeetUnitOfWork>();

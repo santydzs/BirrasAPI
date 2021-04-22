@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirrasAPI", "BirrasAPI\BirrasAPI.csproj", "{FEE2B0BF-E7BC-4235-97AD-F62B39C79E21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirrasAPI", "BirrasAPI\BirrasAPI.csproj", "{FEE2B0BF-E7BC-4235-97AD-F62B39C79E21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{3F7E0062-592B-4D73-83AE-7AEC74B96571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{3F7E0062-592B-4D73-83AE-7AEC74B96571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{B712D851-8FE9-4FBB-BF0A-3EE8842CDC05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{B712D851-8FE9-4FBB-BF0A-3EE8842CDC05}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{D76DEB7F-A1B4-42C8-BCA9-2E232B38444B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{B3815C09-E679-4628-A805-098B1E112089}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{B3815C09-E679-4628-A805-098B1E112089}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirrasApiTest", "BirrasApiTest\BirrasApiTest.csproj", "{77038F8D-7C08-4ECF-875D-055834126554}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B3815C09-E679-4628-A805-098B1E112089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3815C09-E679-4628-A805-098B1E112089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3815C09-E679-4628-A805-098B1E112089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77038F8D-7C08-4ECF-875D-055834126554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77038F8D-7C08-4ECF-875D-055834126554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77038F8D-7C08-4ECF-875D-055834126554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77038F8D-7C08-4ECF-875D-055834126554}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

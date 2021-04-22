@@ -32,5 +32,10 @@ namespace Database.Repository.Implementations
 
             return newMeet.Id;
         }
+
+        public async Task<List<Notification>> GetNotifications(int meetId)
+        {
+            return await _context.Notifications.Where(x => x.MeetId == meetId).ToListAsync();
+        }
     }
 }

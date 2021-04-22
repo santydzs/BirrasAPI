@@ -10,9 +10,9 @@ namespace Business
     {
         private IWeatherLogic _service { get; set; }
 
-        public DataBusiness(IConfiguration config)
+        public DataBusiness(IWeatherLogic service)
         {
-            _service = new WeatherLogic(config["key"], config["host"]);
+            _service = service;
         }
 
         public async Task<decimal> GetTemperature(string city)

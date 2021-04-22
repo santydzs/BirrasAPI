@@ -9,10 +9,10 @@ namespace Services.Logic
     {
         private string _key { get; set; }
         private string _host { get; set; }
-        public WeatherLogic(string key, string host)
+        public WeatherLogic()
         {
-            _key = key;
-            _host = host;
+            _key = "0e9bc5d40cmsha165433178ac5d7p1658ecjsn6b79b9234e4f";
+            _host = "community-open-weather-map.p.rapidapi.com";
         }
         public async Task<decimal> GetTemperature(string city)
         {

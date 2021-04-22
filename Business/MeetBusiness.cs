@@ -37,5 +37,13 @@ namespace Business
                 await db.CommitAsync();
             }
         }
+
+        public async Task<List<string>> GetNotifications(int meetId)
+        {
+            var db = await _unit.Meets.GetNotifications(meetId);
+            var Notifications = new List<string>();
+            db.ForEach(x => Notifications.Add(x.Text));
+            return Notifications;
+        }
     }
 }

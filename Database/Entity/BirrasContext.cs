@@ -37,8 +37,7 @@ namespace Database.Entity
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Invitations)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Invitatio__UserI__3A81B327");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Meet>(entity =>

@@ -1,14 +1,15 @@
 ﻿using BirrasAPI.Request;
 using Business.Interfaces;
-using Domain.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BirrasAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class MeetController : ControllerBase
     {
         private IMeetBusiness _business { get; set; }
@@ -22,6 +23,12 @@ namespace BirrasAPI.Controllers
         public async Task<IActionResult> Get()
         {
             return Ok(await _business.GetAll());
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetNotifications(int id)
+        {
+            return Ok(await _business.GetNotifications(id));
         }
 
         [HttpPost]

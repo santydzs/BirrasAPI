@@ -8,6 +8,7 @@ namespace BirrasAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class DataController : ControllerBase
     {
         private IDataBusiness _business { get; set; }
@@ -18,7 +19,6 @@ namespace BirrasAPI.Controllers
         }
 
         [HttpGet()]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("Temp")]
         public async Task<IActionResult> Get([FromQuery] string city)
         {
