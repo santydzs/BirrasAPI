@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BirrasAPI.Utils
+namespace BirrasAPI.Response
 {
     public class AutResult
     {

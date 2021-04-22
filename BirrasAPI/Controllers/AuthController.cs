@@ -1,5 +1,5 @@
 ﻿using BirrasAPI.Request;
-using BirrasAPI.Utils;
+using BirrasAPI.Response;
 using Business.Interfaces;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -50,7 +50,7 @@ namespace BirrasAPI.Controllers
         {
             var dbUser = await _business.GetwithPassword(user.email);
 
-            if(dbUser.password != user.password)
+            if(dbUser.Password != user.password)
             {
                 return BadRequest(new AutResult()
                 {
@@ -64,10 +64,20 @@ namespace BirrasAPI.Controllers
 
             var jwtToken = GenerateJwtToken(user.email);
 
-            return Ok(new AutResult()
+            return Ok(new LoginResponse()
             {
-                Result = true,
-                Token = jwtToken
+                authResult = new AutResult()
+                {
+                    Result = true,
+                    Token = jwtToken,
+
+                },
+                User = new UserDTO()
+                {
+                    Email = dbUser.Email,
+                    Name = dbUser.Name,
+                    Rol = dbUser.Rol
+                }
             });
         }
 

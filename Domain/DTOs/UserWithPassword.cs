@@ -1,8 +1,7 @@
 ﻿namespace Domain.DTOs
 {
-    public class UserWithPassword
+    public class UserWithPassword : UserDTO
     {
-        public string email { get; set; }
-        public string password { get; set; }
+        public string Password { get; set; }
     }
 }
