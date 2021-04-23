@@ -24,9 +24,10 @@ namespace Business
             return _mapper.Map<List<User>, List<UserDTO>>(db);
         }
 
-        public async Task Add(UserCreateDTO dto)
+        public async Task<UserDTO> Add(UserCreateDTO dto)
         {
-            await _unit.Users.Add(dto);
+            var db = await _unit.Users.Add(dto);
+            return _mapper.Map<User, UserDTO>(db);
         }
 
         public async Task<UserWithPassword> GetwithPassword(string email)

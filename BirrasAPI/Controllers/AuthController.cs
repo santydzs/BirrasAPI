@@ -33,14 +33,19 @@ namespace BirrasAPI.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody] UserCreateDTO user)
         {
-            await _business.Add(user);
+            var userDb = await _business.Add(user);
             
-            var jwtToken = GenerateJwtToken(user.Email);
+            var jwtToken = GenerateJwtToken(userDb.Email);
 
-            return Ok(new AutResult()
+            return Ok(new LoginResponse()
             {
-                 Result = true,
-                 Token = jwtToken
+                authResult = new AutResult()
+                {
+                    Result = true,
+                    Token = jwtToken,
+
+                },
+                User = userDb
             });
         }
 
@@ -50,14 +55,14 @@ namespace BirrasAPI.Controllers
         {
             var dbUser = await _business.GetwithPassword(user.email);
 
-            if(dbUser.Password != user.password)
+            if(dbUser == null || dbUser.Password != user.password)
             {
                 return BadRequest(new AutResult()
                 {
                     Result = false,
                     Errors = new List<string>()
                     {
-                        "incorrect password"
+                        "incorrect password or user doesnt exist"
                     }
                 });
             }

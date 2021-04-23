@@ -7,7 +7,7 @@ namespace Business.Interfaces
     public interface IUserBusiness
     {
         Task<List<UserDTO>> GetAll();
-        Task Add(UserCreateDTO dto);
+        Task<UserDTO> Add(UserCreateDTO dto);
         Task<UserWithPassword> GetwithPassword(string email);
         Task<List<RolDTO>> GetAllRoles();
     }

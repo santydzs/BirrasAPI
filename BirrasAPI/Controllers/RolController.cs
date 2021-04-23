@@ -8,7 +8,6 @@ namespace BirrasAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class RolController : ControllerBase
     {
         private IUserBusiness _business { get; set; }

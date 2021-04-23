@@ -8,8 +8,7 @@ namespace Database.Repository.Interfaces
     public interface IUserRepository : IBaseRepository
     {
         Task<List<User>> GetAll();
-
-        Task<int> Add(UserCreateDTO dto);
+        Task<User> Add(UserCreateDTO dto);
         Task<User> GetOne(string email);
     }
 }

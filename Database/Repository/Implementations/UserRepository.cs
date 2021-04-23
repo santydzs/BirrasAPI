@@ -17,7 +17,7 @@ namespace Database.Repository.Implementations
 
         public async Task<User> GetOne(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return await _context.Users.Include(x => x.Rol).FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task<User> GetWithCredentials(string email, string password)
@@ -25,7 +25,7 @@ namespace Database.Repository.Implementations
             return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
         }
 
-        public async Task<int> Add(UserCreateDTO dto)
+        public async Task<User> Add(UserCreateDTO dto)
         {
             User newUser = new User()
             {
@@ -37,7 +37,8 @@ namespace Database.Repository.Implementations
             await _context.Users.AddAsync(newUser);
 
             await _context.SaveChangesAsync();
-            return newUser.Id;
+
+            return await GetOne(newUser.Email);
 
         }
     }
