@@ -81,6 +81,10 @@ namespace BirrasAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BirrasAPI", Version = "v1" });
             });
 
+            services.AddCors(c =>
+            {
+                c.AddDefaultPolicy(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +102,7 @@ namespace BirrasAPI
             app.UseRouting();
             app.UseAuthorization();
             app.UseAuthentication();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
