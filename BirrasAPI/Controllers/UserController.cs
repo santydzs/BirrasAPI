@@ -1,7 +1,5 @@
 ﻿using Business.Interfaces;
-using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BirrasAPI.Controllers
@@ -21,12 +19,6 @@ namespace BirrasAPI.Controllers
         public async Task<IActionResult> Get()
         {
             return Ok(await _business.GetAll());
-        }
-
-        [HttpPost]
-        public async Task Add([FromBody] UserCreateDTO request)
-        {
-            await _business.Add(request);
         }
     }
 }

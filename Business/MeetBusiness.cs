@@ -12,16 +12,24 @@ namespace Business
     public class MeetBusiness : IMeetBusiness
     {
         private IMeetUnitOfWork _unit { get; set; }
+        private IDataBusiness _dataBusiness { get; set; }
         private IMapper _mapper { get; set; }
-        public MeetBusiness(IMeetUnitOfWork unit, IMapper mapper)
+        public MeetBusiness(IMeetUnitOfWork unit, IMapper mapper, IDataBusiness dataBusiness)
         {
             _unit = unit;
             _mapper = mapper;
+            _dataBusiness = dataBusiness;
         }
-        public async Task<List<MeetDTO>> GetAll()
+        public async Task<List<invitationDTO>> GetAll(DateTime day, int userId)
         {
-            List<Meet> MeetsDB = await _unit.Meets.GetAllFromDate(DateTime.Today);
-            return _mapper.Map<List<Meet>, List<MeetDTO>>(MeetsDB);
+            List<Invitation> MeetsDB = await _unit.Invitations.GetAllFromDate(day, userId);
+            var dtos = _mapper.Map<List<Invitation>, List<invitationDTO>>(MeetsDB);
+            foreach(invitationDTO dto in dtos)
+            {
+                decimal temp = await _dataBusiness.GetTemperature(dto.Meet.City);
+                dto.Meet.Temp = temp;
+            }
+            return dtos;
         }
 
         public async Task AddMeetWithInvitations(MeetDTO dto, List<int> users)
@@ -44,6 +52,17 @@ namespace Business
             var Notifications = new List<string>();
             db.ForEach(x => Notifications.Add(x.Text));
             return Notifications;
+        }
+
+        public async Task<int> JoinMeet(string title, int userId)
+        {
+            var meetDb = await _unit.Meets.GetFromtitle(title);
+            return await _unit.Invitations.Add(meetDb.Id, userId);
+        }
+
+        public async Task Assist(int invitationId)
+        {
+            await _unit.Invitations.Attend(invitationId);
         }
     }
 }

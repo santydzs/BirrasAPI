@@ -9,6 +9,7 @@ namespace Business.Profiles
         public MeetProfiles()
         {
             CreateMap<Meet, MeetDTO>();
+            CreateMap<Invitation, invitationDTO>();
         }
     }
 }

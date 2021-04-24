@@ -77,12 +77,7 @@ namespace BirrasAPI.Controllers
                     Token = jwtToken,
 
                 },
-                User = new UserDTO()
-                {
-                    Email = dbUser.Email,
-                    Name = dbUser.Name,
-                    Rol = dbUser.Rol
-                }
+                User = dbUser
             });
         }
 

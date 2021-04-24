@@ -18,18 +18,11 @@ namespace BirrasAPI.Controllers
             _business = business;
         }
 
-        [HttpGet()]
-        [Route("Temp")]
-        public async Task<IActionResult> Get([FromQuery] string city)
-        {
-            return Ok(new {Temperature = await _business.GetTemperature(city)});
-        }
-
         [HttpGet]
         [Route("beers")]
-        public async Task<IActionResult> GetBeers([FromQuery] string city, [FromQuery] int persons)
+        public async Task<IActionResult> GetBeers([FromQuery] decimal temp, [FromQuery] int persons)
         {
-            return Ok(new {containersOfBeers = await _business.GetHowManyBeers(city, persons)});
+            return Ok(new {containersOfBeers = _business.GetBeersByTemp(temp, persons)});
         }
     }
 }

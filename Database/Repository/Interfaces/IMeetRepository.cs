@@ -8,10 +8,9 @@ namespace Database.Repository.Interfaces
 {
     public interface IMeetRepository : IBaseRepository
     {
-        Task<List<Meet>> GetAllFromDate(DateTime date);
-
         Task<int> Add(MeetDTO dto);
 
         Task<List<Notification>> GetNotifications(int meetId);
+        Task<Meet> GetFromtitle(string title);
     }
 }

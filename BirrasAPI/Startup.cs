@@ -38,6 +38,7 @@ namespace BirrasAPI
             //Auto Mapper Configurations
             var mapperConfig = new MapperConfiguration(mc =>
             {
+                mc.AddProfile(new NotificationsProfile());
                 mc.AddProfile(new MeetProfiles());
                 mc.AddProfile(new RolProfile());
                 mc.AddProfile(new UserProfile());
@@ -99,10 +100,11 @@ namespace BirrasAPI
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
-            app.UseAuthorization();
-            app.UseAuthentication();
             app.UseCors();
+
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,7 +1,5 @@
 ﻿using Business.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Services.Interfaces;
-using Services.Logic;
 using System.Threading.Tasks;
 
 namespace Business
@@ -20,10 +18,8 @@ namespace Business
             return await _service.GetTemperature(city);
         }
 
-        public async Task<int> GetHowManyBeers(string city, int persons)
+        public int GetBeersByTemp(decimal temperature, int persons)
         {
-            decimal temperature = await _service.GetTemperature(city);
-
             if(temperature < 20)
             {
                 return (int)roundUp((float)((persons * 0.75) / 6));

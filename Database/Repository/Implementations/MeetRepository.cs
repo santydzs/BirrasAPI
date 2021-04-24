@@ -2,7 +2,6 @@
 using Database.Repository.Interfaces;
 using Domain.DTOs;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,11 +11,10 @@ namespace Database.Repository.Implementations
     public class MeetRepository : BaseRepository, IMeetRepository
     {
         public MeetRepository(BirrasContext context): base(context) { }
-        public Task<List<Meet>> GetAllFromDate(DateTime date)
+        public async Task<Meet> GetFromtitle(string title)
         {
-            return _context.Meets.Where(x => x.Date >= date).ToListAsync();
+            return await _context.Meets.FirstOrDefaultAsync(x => x.Title == title);
         }
-
         public async Task<int> Add(MeetDTO dto)
         {
             Meet newMeet = new Meet()

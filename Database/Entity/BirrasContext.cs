@@ -19,9 +19,8 @@ namespace Database.Entity
 
         public virtual DbSet<Invitation> Invitations { get; set; }
         public virtual DbSet<Meet> Meets { get; set; }
-        public virtual DbSet<MeetUserRelation> MeetUserRelations { get; set; }
-        public virtual DbSet<Rol> Rols { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Rol> Rols { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,10 +33,13 @@ namespace Database.Entity
 
                 entity.Property(e => e.Attended).HasColumnName("attended");
 
+                entity.HasOne(d => d.Meet)
+                    .WithMany(p => p.Invitations)
+                    .HasForeignKey(d => d.MeetId);
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Invitations)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .HasForeignKey(d => d.UserId);
             });
 
             modelBuilder.Entity<Meet>(entity =>
@@ -48,29 +50,16 @@ namespace Database.Entity
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
+                entity.Property(e => e.City)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<MeetUserRelation>(entity =>
-            {
-                entity.ToTable("MeetUserRelation");
-
-                entity.HasIndex(e => new { e.MeetId, e.InvitationId }).IsUnique();
-
-                entity.HasOne(d => d.Invitation)
-                    .WithMany(p => p.MeetUserRelations)
-                    .HasForeignKey(d => d.InvitationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-
-                entity.HasOne(d => d.Meet)
-                    .WithMany(p => p.MeetUserRelations)
-                    .HasForeignKey(d => d.MeetId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Notification>(entity =>
@@ -83,8 +72,7 @@ namespace Database.Entity
 
                 entity.HasOne(d => d.Meet)
                     .WithMany(p => p.Notifications)
-                    .HasForeignKey(d => d.MeetId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .HasForeignKey(d => d.MeetId);
             });
 
             modelBuilder.Entity<Rol>(entity =>
@@ -99,6 +87,8 @@ namespace Database.Entity
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.Email).IsUnique();
+
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -114,8 +104,7 @@ namespace Database.Entity
 
                 entity.HasOne(d => d.Rol)
                     .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.RolId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .HasForeignKey(d => d.RolId);
             });
 
             OnModelCreatingPartial(modelBuilder);
